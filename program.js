@@ -1,6 +1,4 @@
-var args = process.argv;
-var result = 0;
-for(var i = 2; i < args.length; i++){
-  result += Number(args[i]);
-}
-console.log(result);
+var fs = require('fs');
+var buf = fs.readFileSync(process.argv[2]);
+var lines = buf.toString().split('\n').length -1;
+console.log(lines);
