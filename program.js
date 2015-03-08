@@ -1,13 +1,13 @@
-var fs = require('fs');
-var path = require('path');
+var mymodule = require('./mymodule');
 
-var filepath = process.argv[2];
-var ext = "."+process.argv[3];
+var mypath = process.argv[2];
+var myext = '.' + process.argv[3];
 
-fs.readdir(filepath, function(error, list){
-  for(var i = 0; i < list.length-1; i++){
-    if(path.extname(list[i]) === ext){
-      console.log(list[i]);
-    }
+mymodule(mypath, myext, function(error, list){
+  if(error)
+    console.log('errores: ' + error);
+
+  for (var i = 0; i < list.length; i++){
+    console.log(list[i]);
   }
-}); 
+});
