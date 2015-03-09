@@ -5,7 +5,7 @@ var ext = process.argv[3];
 
 mymodule(dirname, ext, function(err, files) {
   if(err){
-  	console.log('Errors: ' + error);
+  	console.log('Errors: ' + err);
   }else{
   	files.forEach(function(file) {
       console.log(file);
