@@ -1,13 +1,10 @@
 var mymodule = require('./mymodule');
 
-var mypath = process.argv[2];
-var myext = '.' + process.argv[3];
+var dirname = process.argv[2];
+var ext = process.argv[3];
 
-mymodule(mypath, myext, function(error, list){
-  if(error)
-    console.log('errores: ' + error);
-
-  for (var i = 0; i < list.length; i++){
-    console.log(list[i]);
+mymodule(dirname, ext, function(err, files) {
+  for (i = 0; i < files.length; i++) {
+    console.log(files[i]);
   }
 });
