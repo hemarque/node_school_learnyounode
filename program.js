@@ -1,14 +1,10 @@
-var mymodule = require('./mymodule');
+var http = require('http');
 
-var dirname = process.argv[2];
-var ext = process.argv[3];
+var url = process.argv[2];
 
-mymodule(dirname, ext, function(err, files) {
-  if(err){
-  	console.log('Errors: ' + err);
-  }else{
-  	files.forEach(function(file) {
-      console.log(file);
-    });
-  }
+http.get(url, function(resp){
+  resp.setEncoding("utf8");
+  resp.on("data", function(data){
+    console.log(data);
+  });
 });
