@@ -1,14 +1,10 @@
-var net = require('net');
+var http = require('http');
+var fs = require('fs');
 
-function writeDate(date){
-  date.setHours(date.getHours()+1);
-  return date.toISOString().replace('T', ' ').substring(0,16);;
-}
+var port = process.argv[2];
+var file = process.argv[3];
 
-var server = net.createServer(function(socket){
-  var now = new Date();
-  socket.write(writeDate(now));
-  socket.end();
-});
+http.createServer(function(req, res){
+  fs.createReadStream(file).pipe(res);
+}).listen(port);
 
-server.listen(process.argv[2]);
