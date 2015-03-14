@@ -1,10 +1,19 @@
 var http = require('http');
-var fs = require('fs');
 
 var port = process.argv[2];
-var file = process.argv[3];
 
 http.createServer(function(req, res){
-  fs.createReadStream(file).pipe(res);
+
+    if (req.method == 'POST') {
+        var body = '';
+        req.on('data', function (data) {
+            body += data;
+        });
+        req.on('end', function (data) {
+          res.write(body.toUpperCase());
+          res.end();
+        });
+    }
+
 }).listen(port);
 
