@@ -2,18 +2,26 @@ var http = require('http');
 
 var port = process.argv[2];
 
-http.createServer(function(req, res){
+function parsetime(_date){
+  return JSON.stringify( { 
+    hour: _date.getHours(), 
+    minute: _date.getMinutes(), 
+    second: _date.getSeconds()
+  });
+}
 
-    if (req.method == 'POST') {
-        var body = '';
-        req.on('data', function (data) {
-            body += data;
-        });
-        req.on('end', function (data) {
-          res.write(body.toUpperCase());
-          res.end();
-        });
-    }
+function unixtime(_date){
+  return JSON.stringify( {
+    unixtime: _date.getTime()
+  });
+}
 
+http.createServer(function(req, res) {
+  if (req.method == 'GET') {
+    var pathname = req.url.substr(0, req.url.indexOf('?')); 
+    var str_date = req.url.substring(1+req.url.indexOf('='), req.url.length);
+    var _date = new Date(str_date);
+    res.write(pathname==='/api/parsetime'?parsetime(_date):unixtime(_date));
+    res.end();
+  }
 }).listen(port);
-
